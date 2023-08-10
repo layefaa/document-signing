@@ -1,5 +1,7 @@
+import {RegisterForm} from "@/components/templates";
+
 export default function Home() {
     return (
-        <div></div>
+        <RegisterForm/>
     )
 }

@@ -15,7 +15,7 @@ const InputField = ({label, type, placeholder, validation, multiline, id}: IInpu
 
   // @ts-ignore
   return (
-      <div className={'mb-[1.5rem] sm:mb-[2rem] lg:mb-[3rem] flex flex-col w-full'}>
+      <div className={'mb-[.5rem] sm:mb-[1rem] lg:mb-[1.5rem] flex flex-col w-full'}>
         <div className={'flex justify-between items-center'}>
           <Label label={label}/>
           <AnimatePresence mode="wait" initial={false}>
