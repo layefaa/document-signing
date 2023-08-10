@@ -8,12 +8,9 @@ import {AnimatePresence} from "framer-motion";
 
 
 const InputField = ({label, type, placeholder, validation, multiline, id}: IInput) => {
-  const {
-    register,
-    formState: {errors},
-  } = useFormContext()
+  const {register, formState} = useFormContext()
 
-  const inputError = findInputError(errors, id)
+  const inputError = findInputError(formState.errors, id)
   const isInvalid = isFormInvalid(inputError)
 
   // @ts-ignore

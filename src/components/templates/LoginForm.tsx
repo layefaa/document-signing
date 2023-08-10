@@ -1,55 +1,22 @@
 'use client'
-import React, {useState} from 'react';
+import React from 'react';
 import {InputField} from "@/components/molecules";
-import {email_validation} from "@/utils/inputValidation";
-import {FieldValues, FormProvider, useForm} from "react-hook-form";
+import {email_validation, text_validation} from "@/utils/inputValidation";
+import {FormProvider, useForm} from "react-hook-form";
 import {useRouter} from "next/navigation";
-// import {useRouter} from 'next/router'
 
 const LoginForm = () => {
     const router = useRouter()
 
-    const [isLoading, setLoading] = useState(false)
-    const [isSuccess, setSuccess] = useState(false)
-    const [isError, setError] = useState(false)
-
     const NavigateTo = () => {
         router.push('/register')
     }
-    // const sendMail = async (data: FieldValues) => {
-    //     const res = await fetch('/api/mail',
-    //         {
-    //             method: 'POST',
-    //             headers: {'Content-Type': 'application/json'},
-    //             body: JSON.stringify(data)
-    //         })
-    //     console.log(res.status)
-    //     return res;
-    // }
 
 
     const methods = useForm()
 
     const onSubmit = methods.handleSubmit(data => {
-        setLoading(true)
-        // sendMail(data)
-        //     .then(
-        //         (res) => {
-        //             if (res.status === 200) {
-        //                 setSuccess(true)
-        //             }
-        //             if (res.status === 500) {
-        //                 setError(true)
-        //             }
-        //         })
-        //     .finally(() => {
-        //         setTimeout(() => {
-        //             setLoading(false)
-        //             setSuccess(false)
-        //             setError(false)
-        //             methods.reset()
-        //         }, 1000)
-        //     })
+        console.log(data)
     })
     return (
         <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -63,11 +30,15 @@ const LoginForm = () => {
                         <InputField label={'email'} id={'email'} name={'email'} placeholder={'e.g johndoe@mail.com'}
                                     type={'email'}
                                     validation={email_validation}/>
-                        <InputField label={'password'} id={'password'} name={'password'} placeholder={'e.g ******'}
-                                    type={'password'}
-                                    validation={email_validation}/>
+
+                        {/*<InputField label={'password'} id={'password'} name={'password'} placeholder={'e.g ******'}*/}
+                        {/*            type={'password'}*/}
+                        {/*            validation={text_validation}*/}
+                        {/*            />*/}
+
                         <button
                             type="submit"
+                            onClick={onSubmit}
                             className="w-full bg-blue-500 text-white py-2 rounded-md"
                         >
                             Login
@@ -76,7 +47,8 @@ const LoginForm = () => {
                     </form>
                 </FormProvider>
                 <p>
-                    New to Us - <span className={'text-blue-500 cursor-pointer font-bold'} onClick={NavigateTo}>Register</span>
+                    New to Us - <span className={'text-blue-500 cursor-pointer font-bold'}
+                                      onClick={NavigateTo}>Register</span>
                 </p>
             </div>
         </div>

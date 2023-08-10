@@ -4,14 +4,22 @@ const inter = Inter({subsets: ['latin']})
 
 
 export default function DashboardLayout({
-                                       children,
-                                   }: {
+                                            children,
+                                        }: {
     children: React.ReactNode
 }) {
     return (
         <div>
-            Dasboard
-            {children}
+            <div>
+
+            </div>
+            <div>
+                <div></div>
+                <div>
+                    {children}
+                </div>
+            </div>
+
         </div>
     )
 }
