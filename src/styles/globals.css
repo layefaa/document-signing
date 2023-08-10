@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font: inherit;
+}
+
+html {
+    /*font-size: 62.5%;*/
+
+}
+
+html,
+body {
+    max-width: 100vw;
+    overflow-x: hidden;
+    min-height: 100vh;
+    line-height: 165%;
+    -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+svg,
+video {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+#root,
+#__next {
+    isolation: isolate;
+}
+
+
+/*.filter {*/
+/*    background: rgba(24, 24, 24, .1);*/
+/*    backdrop-filter: blur(8rem);*/
+/*    -webkit-backdrop-filter: blur(8rem);*/
+/*}*/
+
+/*.aboutXPadding {*/
+/*    @apply px-0 lg:px-[4rem] xl:px-[8rem]*/
+/*}*/
+
+/*.aboutRInnerPadding {*/
+/*    @apply pr-0 sm:pr-20 lg:pr-80*/
+/*}*/
+
+/*.aboutLInnerPadding {*/
+/*    @apply pl-0 sm:pl-20 lg:pl-80*/
+/*}*/
+
+/*.gradient {*/
+/*    background: linear-gradient(80.5deg, #000000 1.04%, rgba(0, 0, 0, 0) 107.56%);*/
+/*}*/
+
+/*.gradient-image {*/
+/*    background: linear-gradient(80.5deg, rgba(0, 0, 0, 0.84) .04%, rgba(0, 0, 0, 0) 107.56%);*/
+/*}*/
+
+/*.works-gallery-image {*/
+/*    opacity: 0;*/
+/*    transition: opacity 0.5s ease-in-out;*/
+/*}*/
+
+/*.visible {*/
+/*    opacity: 1;*/
+/*}*/
+
+
+/*.gallery {*/
+/*    display: grid;*/
+/*    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));*/
+/*    grid-auto-rows: 300px;*/
+/*    grid-gap: 1rem;*/
+/*}*/
+
+/*@keyframes spin-slow {*/
+/*     0% { transform: rotate(0); }*/
+/*     100% { transform: rotate(360deg); }*/
+/* }*/
+
+/*.animate-spin-slow {*/
+/*    animation: spin-slow 3s linear infinite;*/
+/*}*/
+
+
