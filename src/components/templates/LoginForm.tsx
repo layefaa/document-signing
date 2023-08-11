@@ -1,47 +1,44 @@
 'use client'
 import React from 'react';
 import {InputField} from "@/components/molecules";
-import {email_validation, text_validation} from "@/utils/inputValidation";
+import {email_validation, password_validation} from "@/utils/inputValidation";
 import {FormProvider, useForm} from "react-hook-form";
 import {useRouter} from "next/navigation";
 import {getUserProfile, loginUser, setAuthToken} from "@/api";
 import {IUser} from "@/interfaces";
 import toast from "react-hot-toast";
+import handleResponse from "@/utils/ServerResponseCode";
 
 const LoginForm = () => {
     const router = useRouter()
 
-    const NavigateTo = () => {
-        router.push('/register')
-    }
-
-
     const methods = useForm()
 
-    const userProfile = async () => {
-        await getUserProfile()
+    const NavigateTo = (url: string) => {
+        router.push(url)
     }
+
+    const userProfile = () => getUserProfile()
+        .then((res) => {
+            console.log(res)
+        }).catch(err => {
+            toast.error(handleResponse(err.code).userResponse)
+        })
+
 
     const onSubmit = methods.handleSubmit(data => {
         loginUser(data as IUser).then(
             res => {
-                console.log(res)
+                toast.success('Successful, Welcome')
                 setAuthToken(res.token)
-                toast.success('working')
-                getUserProfile().then((res) => {
-                    console.log(res)
-                }).catch(err => {
-                    console.log(err)
-                })
-
+                localStorage.setItem('tk', res.token)
+                userProfile().then(() => NavigateTo('/'))
             }
         ).catch(err => {
-            console.log(err)
-            toast.error('error')
-        }).finally(() => {
-
+            toast.error(handleResponse(err.code).userResponse)
         })
     })
+
     return (
         <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">
@@ -57,7 +54,7 @@ const LoginForm = () => {
 
                         <InputField label={'password'} id={'password'} name={'password'} placeholder={'e.g ******'}
                                     type={'password'}
-                                    validation={text_validation}
+                                    validation={password_validation}
                         />
 
                         <button
@@ -72,7 +69,7 @@ const LoginForm = () => {
                 </FormProvider>
                 <p>
                     New to Us - <span className={'text-blue-500 cursor-pointer font-bold'}
-                                      onClick={NavigateTo}>Register</span>
+                                      onClick={() => NavigateTo('/register')}>Register</span>
                 </p>
             </div>
         </div>

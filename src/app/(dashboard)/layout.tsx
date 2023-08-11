@@ -1,13 +1,16 @@
-import {Inter} from 'next/font/google'
+'use client'
+import {useEffect} from "react";
+import {useRouter} from "next/navigation";
 
-const inter = Inter({subsets: ['latin']})
-
-
-export default function DashboardLayout({
-                                            children,
-                                        }: {
+export default function DashboardLayout({children}: {
     children: React.ReactNode
 }) {
+    const router = useRouter()
+    useEffect(() => {
+        if (!localStorage.getItem('tk')) {
+            router.push('/login')
+        }
+    }, [])
     return (
         <div>
             <div>

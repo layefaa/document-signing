@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import {InputField} from "@/components/molecules";
-import {email_validation, text_validation} from "@/utils/inputValidation";
+import {email_validation, text_validation, password_validation} from "@/utils/inputValidation";
 import {FormProvider, useForm} from "react-hook-form";
 import {useRouter} from "next/navigation";
 import {registerUser} from "@/api";
@@ -20,11 +20,12 @@ const RegisterForm = () => {
 
     const onSubmit = methods.handleSubmit(data => {
         registerUser(data as IUser).then(
-            res => {
-                toast.success('working')
+            () => {
+                NavigateTo()
+                toast.success('Successful')
             }
         ).catch(err => {
-            toast.error('error')
+            toast.error(err.message)
         }).finally(() => {
 
         })
@@ -42,7 +43,7 @@ const RegisterForm = () => {
                         <InputField label={'first name'} id={'first_name'} name={'first_name'} placeholder={'e.g James'}
                                     type={'text'}
                                     validation={text_validation}/>
-                        <InputField label={'email'} id={'last_name'} name={'last_name'} placeholder={'e.g Obahor'}
+                        <InputField label={'last name'} id={'last_name'} name={'last_name'} placeholder={'e.g Obahor'}
                                     type={'text'}
                                     validation={text_validation}/>
                         <InputField label={'email'} id={'email'} name={'email'} placeholder={'e.g johndoe@mail.com'}
@@ -51,7 +52,7 @@ const RegisterForm = () => {
 
                         <InputField label={'password'} id={'password'} name={'password'} placeholder={'e.g ******'}
                                     type={'password'}
-                                    validation={text_validation}
+                                    validation={password_validation}
                         />
 
                         <button

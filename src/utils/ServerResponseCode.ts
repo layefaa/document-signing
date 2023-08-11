@@ -1,4 +1,3 @@
-import {useRouter} from "next/navigation";
 export const handleResponse = (code: number) => {
     switch (code) {
         case 200:
@@ -9,7 +8,7 @@ export const handleResponse = (code: number) => {
         case 400:
             return {
                 message: 'Bad Request',
-                userResponse: 'Something Seem wrong, Try Again'
+                userResponse: 'Something Seem wrong, Try Again',
             }
         case 401:
             return {
