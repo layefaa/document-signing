@@ -4,6 +4,9 @@ import {InputField} from "@/components/molecules";
 import {email_validation, text_validation} from "@/utils/inputValidation";
 import {FormProvider, useForm} from "react-hook-form";
 import {useRouter} from "next/navigation";
+import {registerUser} from "@/api";
+import {IUser} from "@/interfaces";
+import toast from "react-hot-toast";
 
 const RegisterForm = () => {
     const router = useRouter()
@@ -16,7 +19,15 @@ const RegisterForm = () => {
     const methods = useForm()
 
     const onSubmit = methods.handleSubmit(data => {
-        console.log(data)
+        registerUser(data as IUser).then(
+            res => {
+                toast.success('working')
+            }
+        ).catch(err => {
+            toast.error('error')
+        }).finally(() => {
+
+        })
     })
     return (
         <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -28,6 +39,12 @@ const RegisterForm = () => {
                         onSubmit={e => e.preventDefault()}
                         noValidate
                     >
+                        <InputField label={'first name'} id={'first_name'} name={'first_name'} placeholder={'e.g James'}
+                                    type={'text'}
+                                    validation={text_validation}/>
+                        <InputField label={'email'} id={'last_name'} name={'last_name'} placeholder={'e.g Obahor'}
+                                    type={'text'}
+                                    validation={text_validation}/>
                         <InputField label={'email'} id={'email'} name={'email'} placeholder={'e.g johndoe@mail.com'}
                                     type={'email'}
                                     validation={email_validation}/>
@@ -49,7 +66,7 @@ const RegisterForm = () => {
                 </FormProvider>
                 <p>
                     Have an Account ? - <span className={'text-blue-500 cursor-pointer font-bold'}
-                                      onClick={NavigateTo}>Login</span>
+                                              onClick={NavigateTo}>Login</span>
                 </p>
             </div>
         </div>

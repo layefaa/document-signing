@@ -4,6 +4,9 @@ import {InputField} from "@/components/molecules";
 import {email_validation, text_validation} from "@/utils/inputValidation";
 import {FormProvider, useForm} from "react-hook-form";
 import {useRouter} from "next/navigation";
+import {getUserProfile, loginUser, setAuthToken} from "@/api";
+import {IUser} from "@/interfaces";
+import toast from "react-hot-toast";
 
 const LoginForm = () => {
     const router = useRouter()
@@ -15,8 +18,29 @@ const LoginForm = () => {
 
     const methods = useForm()
 
+    const userProfile = async () => {
+        await getUserProfile()
+    }
+
     const onSubmit = methods.handleSubmit(data => {
-        console.log(data)
+        loginUser(data as IUser).then(
+            res => {
+                console.log(res)
+                setAuthToken(res.token)
+                toast.success('working')
+                getUserProfile().then((res) => {
+                    console.log(res)
+                }).catch(err => {
+                    console.log(err)
+                })
+
+            }
+        ).catch(err => {
+            console.log(err)
+            toast.error('error')
+        }).finally(() => {
+
+        })
     })
     return (
         <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -34,7 +58,7 @@ const LoginForm = () => {
                         <InputField label={'password'} id={'password'} name={'password'} placeholder={'e.g ******'}
                                     type={'password'}
                                     validation={text_validation}
-                                    />
+                        />
 
                         <button
                             type="submit"
