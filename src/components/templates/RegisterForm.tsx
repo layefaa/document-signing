@@ -54,6 +54,10 @@ const RegisterForm = () => {
                                     type={'password'}
                                     validation={password_validation}
                         />
+                        <InputField label={'confirm password'} id={'password'} name={'password'} placeholder={'e.g ******'}
+                                    type={'password'}
+                                    validation={password_validation}
+                        />
 
                         <button
                             type="submit"
