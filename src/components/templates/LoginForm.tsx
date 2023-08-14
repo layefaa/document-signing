@@ -9,6 +9,7 @@ import {getUserProfile, loginUser, setAuthToken} from "@/api";
 import {IUser} from "@/interfaces";
 import toast from "react-hot-toast";
 import handleResponse from "@/utils/ServerResponseCode";
+import {userStore} from "@/store";
 
 
 const LoginForm = () => {
@@ -21,12 +22,17 @@ const LoginForm = () => {
         router.push(url)
     }
 
-    const userProfile = () => getUserProfile()
-        .then((res) => {
-            console.log(res)
-        }).catch(err => {
-            toast.error(handleResponse(err.code).userResponse)
-        })
+    //store
+    const {setUser} = userStore()
+
+    const userProfile = () =>
+        getUserProfile()
+            .then((res) => {
+                setUser(res.data)
+            })
+            .catch(err => {
+                toast.error(handleResponse(err.code).userResponse)
+            })
 
 
     const onSubmit = methods.handleSubmit(data => {
