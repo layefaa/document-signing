@@ -5,19 +5,19 @@ const api = axios.create({
     baseURL: 'https://dev-api.gettonote.com/api/v1'
 })
 
-const token = localStorage.getItem("token");
+// const token = localStorage.getItem("token");
 
-if (token) {
-    axios.interceptors.request.use(
-        (config) => {
-            config.headers["Authorization"] = `Bearer ${token}`;
-            return config;
-        },
-        (error) => {
-            console.log(error)
-        }
-    );
-}
+// if (token) {
+//     axios.interceptors.request.use(
+//         (config) => {
+//             config.headers["Authorization"] = `Bearer ${token}`;
+//             return config;
+//         },
+//         (error) => {
+//             console.log(error)
+//         }
+//     );
+// }
 
 
 export const setAuthToken = (token: string) => {
