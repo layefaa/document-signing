@@ -1,14 +1,18 @@
 'use client'
-import React from 'react';
+import React, {useState} from 'react';
+import {Button} from "@/components/atoms";
 import {InputField} from "@/components/molecules";
-import {email_validation, text_validation, password_validation} from "@/utils/inputValidation";
+import {email_validation, password_validation, text_validation} from "@/utils/inputValidation";
 import {FormProvider, useForm} from "react-hook-form";
 import {useRouter} from "next/navigation";
 import {registerUser} from "@/api";
 import {IUser} from "@/interfaces";
 import toast from "react-hot-toast";
 
+
 const RegisterForm = () => {
+    const [isLoading, setLoading] = useState(false)
+
     const router = useRouter()
 
     const NavigateTo = () => {
@@ -19,16 +23,18 @@ const RegisterForm = () => {
     const methods = useForm()
 
     const onSubmit = methods.handleSubmit(data => {
-        registerUser(data as IUser).then(
-            () => {
+        setLoading(true)
+        registerUser(data as IUser)
+            .then(() => {
                 NavigateTo()
                 toast.success('Successful')
-            }
-        ).catch(err => {
-            toast.error(err.message)
-        }).finally(() => {
-
-        })
+            })
+            .catch(err => {
+                toast.error(err.message)
+            })
+            .finally(() => {
+                setLoading(false)
+            })
     })
     return (
         <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -54,18 +60,19 @@ const RegisterForm = () => {
                                     type={'password'}
                                     validation={password_validation}
                         />
-                        <InputField label={'confirm  password'} id={'password'} name={'password'} placeholder={'e.g ******'}
+                        <InputField label={'confirm  password'} id={'password'} name={'password'}
+                                    placeholder={'e.g ******'}
                                     type={'password'}
                                     validation={password_validation}
                         />
 
-                        <button
-                            type="submit"
-                            onClick={onSubmit}
-                            className="w-full bg-blue-500 text-white py-2 rounded-md"
+                        <Button
+                            disabled={isLoading}
+                            loading={isLoading}
+                            handleClick={onSubmit}
                         >
                             Register
-                        </button>
+                        </Button>
 
                     </form>
                 </FormProvider>

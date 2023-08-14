@@ -1,5 +1,6 @@
 'use client'
-import React from 'react';
+import React, {useState} from 'react';
+import {Button} from "@/components/atoms";
 import {InputField} from "@/components/molecules";
 import {email_validation, password_validation} from "@/utils/inputValidation";
 import {FormProvider, useForm} from "react-hook-form";
@@ -9,8 +10,10 @@ import {IUser} from "@/interfaces";
 import toast from "react-hot-toast";
 import handleResponse from "@/utils/ServerResponseCode";
 
+
 const LoginForm = () => {
     const router = useRouter()
+    const [isLoading, setLoading] = useState(false)
 
     const methods = useForm()
 
@@ -27,16 +30,17 @@ const LoginForm = () => {
 
 
     const onSubmit = methods.handleSubmit(data => {
-        loginUser(data as IUser).then(
-            res => {
+        setLoading(true)
+        loginUser(data as IUser)
+            .then(res => {
                 toast.success('Successful, Welcome')
                 setAuthToken(res.token)
-                localStorage.setItem('tk', res.token)
                 userProfile().then(() => NavigateTo('/'))
-            }
-        ).catch(err => {
-            toast.error(handleResponse(err.code).userResponse)
-        })
+            })
+            .catch(err => {
+                toast.error(handleResponse(err.code).userResponse)
+            })
+            .finally(() => setLoading(false))
     })
 
     return (
@@ -57,13 +61,13 @@ const LoginForm = () => {
                                     validation={password_validation}
                         />
 
-                        <button
-                            type="submit"
-                            onClick={onSubmit}
-                            className="w-full bg-blue-500 text-white py-2 rounded-md"
+                        <Button
+                            disabled={isLoading}
+                            loading={isLoading}
+                            handleClick={onSubmit}
                         >
                             Login
-                        </button>
+                        </Button>
 
                     </form>
                 </FormProvider>

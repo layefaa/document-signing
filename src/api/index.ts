@@ -5,8 +5,24 @@ const api = axios.create({
     baseURL: 'https://dev-api.gettonote.com/api/v1'
 })
 
-export const setAuthToken = (token:string) => {
+const token = localStorage.getItem("token");
+
+if (token) {
+    axios.interceptors.request.use(
+        (config) => {
+            config.headers["Authorization"] = `Bearer ${token}`;
+            return config;
+        },
+        (error) => {
+            console.log(error)
+        }
+    );
+}
+
+
+export const setAuthToken = (token: string) => {
     if (token) {
+        localStorage.setItem('token', token)
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     } else {
         delete api.defaults.headers.common['Authorization'];
