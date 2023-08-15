@@ -32,6 +32,7 @@ export const setAuthToken = (token: string) => {
 const registerEndpoint = '/user/register'
 const loginEndpoint = '/user/login'
 const profileEndpoint = '/user/profile'
+const logoutEndpoint = '/user/logout'
 
 
 export const registerUser = async ({first_name, last_name, email, password, role = 'User'}: IUser) => {
@@ -57,8 +58,15 @@ export const loginUser = async ({password, email}: IUser) => {
     return response.data
 }
 
+
+
 export const getUserProfile = async () => {
     const response = await api.get(profileEndpoint)
+    return response.data
+}
+
+export const logoutUser = async () => {
+    const response = await api.post(logoutEndpoint)
     return response.data
 }
 
