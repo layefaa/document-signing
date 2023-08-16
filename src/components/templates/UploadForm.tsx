@@ -1,6 +1,9 @@
 'use client'
 
 import React, {useState} from 'react';
+import {FileInputField} from "@/components/molecules";
+import {Button} from "@/components/atoms";
+import {uploadDocument} from "@/api";
 
 const UploadForm = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -22,31 +25,35 @@ const UploadForm = () => {
 
     const handleUpload = () => {
         if (selectedFile) {
+            const formData = new FormData();
+            formData.append('title', selectedFile.name);
+            // @ts-ignore
+            formData.append('files', [selectedFile]);
+            uploadDocument(formData).then((res)=>
+            console.log(res)).catch((err)=> console.log(err))
             // Here you can implement the upload logic
             console.log('Uploading:', selectedFile);
         }
     };
 
+    //TODO : Implement File Size Restriction
+
     return (
         <div className="min-h-full flex flex-col  bg-white p-8 rounded-lg shadow-md">
             <h2 className="text-2xl font-semibold mb-4">Upload a Document</h2>
             <div className="bg-white p-8 rounded-lg shadow-md">
-
-                <input
-                    type="file"
-                    accept=".pdf,.doc,.docx"
-                    onChange={handleFileChange}
-                    className="mb-4"
-                />
+                {!selectedFile &&
+                    <FileInputField label={'Upload File'} handleChange={handleFileChange} accept={allowedFileTypes}
+                                    max={5000}/>}
                 {error && <p className="text-red-500 mb-4">{error}</p>}
-                {selectedFile && <p className="mb-4">Selected file: {selectedFile.name}</p>}
-                <button
-                    onClick={handleUpload}
+                {selectedFile && <p className="mb-4 text-2xl">Selected file: <span className={'font-bold'}>{selectedFile.name} </span></p>}
+                <Button
+                    handleClick={handleUpload}
+                    loading={!selectedFile}
                     disabled={!selectedFile}
-                    className="bg-blue-500 text-white px-4 py-2 rounded-md disabled:bg-gray-400"
                 >
                     Upload
-                </button>
+                </Button>
             </div>
         </div>
     );

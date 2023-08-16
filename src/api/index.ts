@@ -56,8 +56,10 @@ export const logoutUser = async () => {
     const response = await api.post(logoutEndpoint)
     return response.data
 }
-export const uploadDocument = async () => {
-    const response = await api.post(documentEndpoint)
+export const uploadDocument = async (formData: any) => {
+    const response = await api.post(documentEndpoint,
+        formData
+    )
     return response.data
 }
 

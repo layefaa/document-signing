@@ -13,7 +13,7 @@ export default function DashboardLayout({children}: { children: React.ReactNode 
         if (!localStorage.getItem('token') || !user) {
             router.push('/login')
         }
-    }, [])
+    }, [user, router])
 
 
     return (

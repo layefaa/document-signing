@@ -1,5 +1,5 @@
 import {create} from 'zustand'
-import {createJSONStorage, devtools, persist} from 'zustand/middleware'
+import {devtools, persist} from 'zustand/middleware'
 import {IUserInfo} from "@/interfaces";
 
 type Store = {
@@ -20,7 +20,6 @@ export const userStore = create<Store>()(
             ),
             {
                 name: 'user',
-                storage: createJSONStorage(() => sessionStorage)
             }
         )
     )
