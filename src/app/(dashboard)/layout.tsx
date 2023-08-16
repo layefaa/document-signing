@@ -31,7 +31,7 @@ export default function DashboardLayout({children}: { children: React.ReactNode 
                         })
                     }
                 </Navbar>
-                <div className={'ml-[200px]'}>
+                <div className={'ml-[200px] min-h-screen pt-[100px] p-5 h-full'}>
                     {children}
                 </div>
             </div>

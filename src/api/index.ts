@@ -20,6 +20,7 @@ const registerEndpoint = '/user/register'
 const loginEndpoint = '/user/login'
 const profileEndpoint = '/user/profile'
 const logoutEndpoint = '/user/logout'
+const documentEndpoint = '/documents'
 
 
 export const registerUser = async ({first_name, last_name, email, password, role = 'User'}: IUser) => {
@@ -53,6 +54,17 @@ export const getUserProfile = async () => {
 
 export const logoutUser = async () => {
     const response = await api.post(logoutEndpoint)
+    return response.data
+}
+export const uploadDocument = async () => {
+    const response = await api.post(documentEndpoint)
+    return response.data
+}
+
+export const getDocument = async ({documentId}: { documentId: string }) => {
+    const response = await api.get(documentEndpoint, {
+        url: documentId
+    })
     return response.data
 }
 

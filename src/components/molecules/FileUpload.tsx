@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 
-const FileUpload = ({ name, accept, max }) => {
+const FileUpload = ({name, accept, max}: { name: string, accept: string, max: number }) => {
     const [file, setFile] = useState(null);
 
-    const handleChange = (event) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+        // @ts-ignore
         setFile(event.target.files[0]);
     };
 
