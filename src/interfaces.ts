@@ -10,6 +10,7 @@ export interface IInput {
 }
 
 
+
 //api
 export interface IUser {
     first_name?: string,

@@ -3,9 +3,11 @@ import {userStore} from "@/store";
 import {ProfilePic} from "@/components/atoms";
 import {logoutUser} from "@/api";
 import toast from "react-hot-toast";
+import {useRouter} from "next/navigation";
 
 const DropDownMenu = () => {
-    const {user} = userStore()
+    const router = useRouter()
+    const {user, setUser} = userStore()
     const logout = () => {
         logoutUser()
             .then(() => {
@@ -14,6 +16,12 @@ const DropDownMenu = () => {
             .catch(err => {
                 console.log(err)
                 toast.error(err.message)
+            })
+            .finally(() => {
+                setUser(null)
+                router.push('/login')
+                localStorage.removeItem('token')
+
             })
 
     }

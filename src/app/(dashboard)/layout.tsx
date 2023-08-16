@@ -2,7 +2,9 @@
 import {useEffect} from "react";
 import {useRouter} from "next/navigation";
 import {userStore} from "@/store";
-import {Header} from "@/components/organisms";
+import {Header, Navbar} from "@/components/organisms";
+import {NavItems} from "@/constants";
+import {NavLink} from "@/components/atoms";
 
 export default function DashboardLayout({children}: { children: React.ReactNode }) {
     const {user} = userStore()
@@ -10,19 +12,26 @@ export default function DashboardLayout({children}: { children: React.ReactNode 
     useEffect(() => {
         if (!localStorage.getItem('token') || !user) {
             router.push('/login')
-        }else {
-            router.push('/home')
         }
     }, [])
 
 
     return (
         <div className={'relative bg-gray-200'}>
-            <Header name={(user !== null) ? `${user.first_name} ${user.last_name}` : "user"}
+            <Header classes={'h-[80px]'}
+                    name={(user !== null) ? `${user.first_name} ${user.last_name}` : "user"}
                     initials={(user !== null) ? `${user.initials}` : "u"}/>
-            <div>
-                <div></div>
-                <div>
+            <div className={' relative'}>
+                <Navbar classes={'flex flex-col w-[200px] pt-[100px] h-[100%] py-[20px]'}>
+                    {
+                        NavItems.map((link, index) => {
+                            return (
+                                <NavLink key={index} url={link.url} name={link.name}/>
+                            )
+                        })
+                    }
+                </Navbar>
+                <div className={'ml-[200px]'}>
                     {children}
                 </div>
             </div>

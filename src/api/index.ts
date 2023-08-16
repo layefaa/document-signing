@@ -5,21 +5,8 @@ const api = axios.create({
     baseURL: 'https://dev-api.gettonote.com/api/v1'
 })
 
-// const token = localStorage.getItem("token");
 
-// if (token) {
-//     axios.interceptors.request.use(
-//         (config) => {
-//             config.headers["Authorization"] = `Bearer ${token}`;
-//             return config;
-//         },
-//         (error) => {
-//             console.log(error)
-//         }
-//     );
-// }
-
-
+// TODO : Implement a timeout/expire function for token
 export const setAuthToken = (token: string) => {
     if (token) {
         localStorage.setItem('token', token)
@@ -57,7 +44,6 @@ export const loginUser = async ({password, email}: IUser) => {
         })
     return response.data
 }
-
 
 
 export const getUserProfile = async () => {
